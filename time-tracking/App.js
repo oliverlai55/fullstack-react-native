@@ -20,6 +20,13 @@ export default class App extends React.Component {
             elapsed="8986300"
             isRunning
           />
+          <EditableTimer
+            id="2"
+            title="Bake squash"
+            project="Kitchen Chores"
+            elaspsed="3890985"
+            editFormOpen
+          />
         </ScrollView>
       </View>
     );
@@ -27,10 +34,21 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  appContainer: {
+    flex; 1,
+  },
+  titleContainer: {
+    paddingTop: 35,
+    paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#D6D7DA',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  timerList: {
+    paddingBottom: 15,
   },
 });
