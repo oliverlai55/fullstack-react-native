@@ -1,11 +1,34 @@
 import React from 'react';
+import uuidv4 from 'uuid/v4';
+
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import EditableTimer from './components/EditableTimer';
 import ToggleableTimerForm from './components/ToggleableTimerForm';
 
 export default class App extends React.Component {
+  state = {
+    timers: [
+      {
+        title: 'Mow the lawn',
+        project: 'House Chores',
+        id: uuidv4(),
+        elapsed: 5456099,
+        isRunning: true,
+      },
+      {
+        title: 'Bake squash',
+        project: 'Kitchen Chores',
+        id: uuidv4(),
+        elapsed: 1273998,
+        isRunning: false,
+      },
+    ],
+  };
+
   render() {
+    const { timers } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
@@ -13,20 +36,16 @@ export default class App extends React.Component {
         </View>
         <ScrollView style={styles.timerList}>
           <ToggleableTimerForm isOpen={false} />
-          <EditableTimer 
-            id="1"
-            title="Mow the lawn"
-            project="House Chores"
-            elapsed="8986300"
-            isRunning
-          />
-          <EditableTimer
-            id="2"
-            title="Bake squash"
-            project="Kitchen Chores"
-            elaspsed="3890985"
-            editFormOpen
-          />
+          {timers.map(({ title, project, id, elapsed, isRunning }) => (
+            <EditableTimer
+              key={id}
+              id={id}
+              title={title}
+              project={project}
+              elapsed={elapsed}
+              isRunning={isRunning}
+            />
+          ))}
         </ScrollView>
       </View>
     );
@@ -35,20 +54,20 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   appContainer: {
-    flex; 1,
+    flex: 1
   },
   titleContainer: {
     paddingTop: 35,
     paddingBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#D6D7DA',
+    borderBottomColor: '#D6D7DA'
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   timerList: {
-    paddingBottom: 15,
-  },
+    paddingBottom: 15
+  }
 });
