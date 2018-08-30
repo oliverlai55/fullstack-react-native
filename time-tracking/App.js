@@ -1,7 +1,8 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
 
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { newTimer } from './utils/TimerUtils';
 
 import EditableTimer from './components/EditableTimer';
 import ToggleableTimerForm from './components/ToggleableTimerForm';
@@ -26,16 +27,44 @@ export default class App extends React.Component {
     ],
   };
 
+  handleCreateFormSubmit = timer => {
+    const { timers } = this.state;
+
+    this.setState({
+      timers: [newTimer(timer), ...timers],
+    });
+  };
+
+  handleFormSubmit = attrs => {
+    const { timers } = this.state;
+
+    this.setState({
+      timers: timers.map(timer => {
+        if (timer.id === attrs.id) {
+          const { title, project } = attrs;
+
+          return {
+            ...timer,
+            title,
+            project,
+          };
+        }
+
+        return timer;
+      }),
+    });
+  };
+
   render() {
     const { timers } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View style={styles.appContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styleMedia.title}>Timers</Text>
+          <Text style={styles.title}>Timers</Text>
         </View>
         <ScrollView style={styles.timerList}>
-          <ToggleableTimerForm isOpen={false} />
+          <ToggleableTimerForm onFormSubmit={this.handleCreateFormSubmit} />
           {timers.map(({ title, project, id, elapsed, isRunning }) => (
             <EditableTimer
               key={id}
@@ -44,6 +73,7 @@ export default class App extends React.Component {
               project={project}
               elapsed={elapsed}
               isRunning={isRunning}
+              onFormSubmit={this.handleFormSubmit}
             />
           ))}
         </ScrollView>
@@ -54,20 +84,20 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   appContainer: {
-    flex: 1
+    flex: 1,
   },
   titleContainer: {
     paddingTop: 35,
     paddingBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#D6D7DA'
+    borderBottomColor: '#D6D7DA',
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   timerList: {
-    paddingBottom: 15
-  }
+    paddingBottom: 15,
+  },
 });
