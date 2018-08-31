@@ -24,6 +24,28 @@ export default class Timer extends Component {
     onStopPress(id);
   };
 
+  renderActionButton() {
+    const { isRunning } = this.props;
+
+    if (isRunning) {
+      return (
+        <TimerButton
+          color="#DB2b2b"
+          title="Stop"
+          onPress={this.handleStopPress}
+        />
+      );
+    }
+
+    return (
+      <TimerButton
+        color="#21BA45"
+        title="Start"
+        onPress={this.handleStartPress}
+      />
+    );
+  }
+
   render() {
   const { elapsed, title, project, onEditPress } = this.props;
   const elapsedString = millisecondsToHuman(elapsed);
@@ -47,7 +69,7 @@ export default class Timer extends Component {
           onPress={this.handleRemovePress}
         />
       </View>
-      <TimerButton color="#21BA45" title="Start" />
+      {this.renderActionButton()}
     </View>
   );
 };

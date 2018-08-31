@@ -63,6 +63,8 @@ export default class EditableTimer extends Component {
         isRunning={isRunning}
         onEditPress={this.handleEditPress}
         onRemovePress={onRemovePress}
+        onStartPress={onStartPress}
+        onStopPress={onStopPress}
       />
     );
   }
