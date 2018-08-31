@@ -6,6 +6,18 @@ import TimerButton from './TimerButton';
 
 // export default function Timer({ title, project, elapsed }) {
 export default class Timer extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    project: PropTypes.string.isRequired,
+    elapsed: PropTypes.number.isRequired,
+    isRunning: PropTypes.bool.isRequired,
+    onEditPress: PropTypes.func.isRequired,
+    onRemovePress: PropTypes.func.isRequired,
+    onStartPress: PropTypes.func.isRequired,
+    onStopPress: PropTypes.func.isRequired,
+  };
+  
   handleRemovePress = () => {
     const { id, onRemovePress } = this.props;
 
@@ -47,32 +59,32 @@ export default class Timer extends Component {
   }
 
   render() {
-  const { elapsed, title, project, onEditPress } = this.props;
-  const elapsedString = millisecondsToHuman(elapsed);
+    const { elapsed, title, project, onEditPress } = this.props;
+    const elapsedString = millisecondsToHuman(elapsed);
 
-  return (
-    <View style={styles.timerContainer}>
-      <Text style={styles.title}>{title}</Text>
-      <Text>{project}</Text>
-      <Text style={styles.elapsedTime}>{elapsedString}</Text>
-      <View style={styles.buttonGroup}>
-        <TimerButton
-          color="blue"
-          small
-          title="Edit"
-          onPress={onEditPress}
-        />
-        <TimerButton
-          color="blue"
-          small
-          title="Remove"
-          onPress={this.handleRemovePress}
-        />
+    return (
+      <View style={styles.timerContainer}>
+        <Text style={styles.title}>{title}</Text>
+        <Text>{project}</Text>
+        <Text style={styles.elapsedTime}>{elapsedString}</Text>
+        <View style={styles.buttonGroup}>
+          <TimerButton
+            color="blue"
+            small
+            title="Edit"
+            onPress={onEditPress}
+          />
+          <TimerButton
+            color="blue"
+            small
+            title="Remove"
+            onPress={this.handleRemovePress}
+          />
+        </View>
+        {this.renderActionButton()}
       </View>
-      {this.renderActionButton()}
-    </View>
-  );
-};
+    );
+  };
 };
 
 const styles = StyleSheet.create({

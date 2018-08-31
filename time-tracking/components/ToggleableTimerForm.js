@@ -5,6 +5,10 @@ import TimerButton from './TimerButton';
 import TimerForm from './TimerForm';
 
 export default class ToggleableTimerForm extends Component {
+  static propTypes = {
+    onFormSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     isOpen: false,
   };
@@ -19,7 +23,7 @@ export default class ToggleableTimerForm extends Component {
 
   handleFormSubmit = timer => {
     const { onFormSubmit } = this.props;
-    
+
     onFormSubmit(timer);
     this.setState({ isOpen: false });
   };
@@ -35,8 +39,8 @@ export default class ToggleableTimerForm extends Component {
             onFormClose={this.handleFormClose}
           />
         ) : (
-          <TimerButton title="+" color="black" onPress={this.handleFormOpen} />
-        )}
+            <TimerButton title="+" color="black" onPress={this.handleFormOpen} />
+          )}
       </View>
     );
   }

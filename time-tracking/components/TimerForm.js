@@ -4,6 +4,19 @@ import { StyleSheet, View, Text, TextInput } from 'react-native';
 import TimerButton from './TimerButton';
 
 export default class TimerForm extends React.Component {
+  static propTypes = {
+    id: PropTypes.string,
+    title: PropTypes.string,
+    project: PropTypes.string,
+    onFormSubmit: PropTypes.func.isRequired,
+    onFormClose: PropTypes.func.isRequired,
+  };
+  static defaultProps = {
+    id: null,
+    title: '',
+    project: '',
+  };
+  
   constructor(props) {
     super(props);
 
@@ -33,7 +46,7 @@ export default class TimerForm extends React.Component {
       project,
     });
   };
-  
+
   render() {
     const { id, onFormClose } = this.props;
     const { title, project } = this.state;

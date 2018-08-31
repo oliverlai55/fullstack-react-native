@@ -1,7 +1,13 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
 
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { newTimer } from './utils/TimerUtils';
 
 import EditableTimer from './components/EditableTimer';
@@ -84,6 +90,27 @@ export default class App extends React.Component {
     });
   };
 
+  toggleTimer = timerId => {
+    this.setState(prevState => {
+      const { timers } = prevState;
+
+      return {
+        timers: timers.map(timer => {
+          const { id, isRunning } = timer;
+
+          if (id === timerId) {
+            return {
+              ...timer,
+              isRunning: !isRunning,
+            };
+          }
+
+          return timer;
+        }),
+      };
+    });
+  };
+
   render() {
     const { timers } = this.state;
 
@@ -92,21 +119,26 @@ export default class App extends React.Component {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Timers</Text>
         </View>
-        <ScrollView style={styles.timerList}>
-          <ToggleableTimerForm onFormSubmit={this.handleCreateFormSubmit} />
-          {timers.map(({ title, project, id, elapsed, isRunning }) => (
-            <EditableTimer
-              key={id}
-              id={id}
-              title={title}
-              project={project}
-              elapsed={elapsed}
-              isRunning={isRunning}
-              onFormSubmit={this.handleFormSubmit}
-              onRemovePress={this.handleRemovePress}
-            />
-          ))}
-        </ScrollView>
+
+        <KeyboardAvoidingView>
+          <ScrollView style={styles.timerList}>
+            <ToggleableTimerForm onFormSubmit={this.handleCreateFormSubmit} />
+            {timers.map(({ title, project, id, elapsed, isRunning }) => (
+              <EditableTimer
+                key={id}
+                id={id}
+                title={title}
+                project={project}
+                elapsed={elapsed}
+                isRunning={isRunning}
+                onFormSubmit={this.handleFormSubmit}
+                onRemovePress={this.handleRemovePress}
+                onStartPress={this.toggleTimer}
+                onStopPress={this.toggleTimer}
+              />
+            ))}
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     );
   }
@@ -121,6 +153,9 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#D6D7DA',
+  },
+  timerListContainer: {
+    flex: 1,
   },
   title: {
     fontSize: 18,
