@@ -2,12 +2,21 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Avatar from './components/Avatar';
 import { Constants } from 'expo';
+import AuthorRow from './components/AuthorRow';
+import Card from './components/Card';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Avatar initials={'FL'} size={35} backgroundColor={'teal'} />
+        <Card 
+          fullname={'First Last'}
+          linkText={'Comments'}
+          onPressLinkText={() => {
+            console.log('Pressed link!');
+          }}
+          image={{ uri: 'https://unspash.it/600/600' }}
+        />
       </View>
     );
   }
