@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -12,13 +12,17 @@ export default class Card extends Component {
     onPressLinkText: PropTypes.func,
   };
 
-  static defaultProps = {
-    linkText: '',
-    onPressLinkText: () => {},
+  state = {
+    loading: true,
+  };
+
+  handleLoad = () => {
+    this.setState({ loading: false });
   };
 
   render() {
     const { fullname, image, linkText, onPressLinkText } = this.props;
+    const { loading } = this.state;
 
     return (
       <View>
@@ -27,7 +31,16 @@ export default class Card extends Component {
           linkText={linkText}
           onPressLinkText={onPressLinkText}
         />
-        <Image style={styleMedia.image} source={image} />
+        <View style={styles.image}>
+          {loading && (
+            <ActivityIndicator style={StyleSheet.absoluteFill} size={'large'} />
+          )}
+          <Image
+            style={StyleSheet.absoluteFill}
+            source={image}
+            onLoad={this.handleLoad}
+          />
+        </View>
       </View>
     );
   }
@@ -36,6 +49,6 @@ export default class Card extends Component {
 const styles = StyleSheet.create({
   image: {
     aspectRatio: 1,
-    backgroundColor: 'rgba(0,0,0,0.02',
+    backgroundColor: 'rgba(0,0,0,0.02)',
   },
 });
