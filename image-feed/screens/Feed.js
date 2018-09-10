@@ -2,22 +2,27 @@ import {
   ActivityIndicator,
   Text,
   ViewPropTypes,
-  SafeAreaVew,
+  SafeAreaView,
 } from 'react-native';
-
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 
 import { fetchImages } from '../utils/api';
 import CardList from '../components/CardList';
 
-export default class Feed extends Component {
+export default class Feed extends React.Component {
   static propTypes = {
     style: ViewPropTypes.style,
   };
 
   static defaultProps = {
     style: null,
+  };
+
+  state = {
+    loading: true,
+    error: false,
+    items: [],
   };
 
   async componentDidMount() {

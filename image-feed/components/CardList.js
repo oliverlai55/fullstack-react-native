@@ -1,16 +1,13 @@
 import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 
 import { getImageFromId } from '../utils/api';
 import Card from './Card';
 
-import { getImageFromId } from '../utils/api';
-import Card from './Card';
+const keyExtractor = ({ id }) => id.toString();
 
-const keyExtractor = ({ id }) => id.toString(),
-
-export default class CardList extends Component {
+export default class CardList extends React.Component {
   static propTypes = {
     items: PropTypes.arrayOf(
       PropTypes.shape({
@@ -21,7 +18,7 @@ export default class CardList extends Component {
   };
 
   renderItem = ({ item: { id, author } }) => (
-    <Card 
+    <Card
       fullname={author}
       image={{
         uri: getImageFromId(id),
