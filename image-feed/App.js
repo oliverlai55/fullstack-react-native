@@ -4,6 +4,26 @@ import { Constants } from 'expo';
 import Feed from './screens/Feed';
 
 export default class App extends Component {
+  state = {
+    commentsForItem: {},
+    showModal: false,
+    selectedItemid: null,
+  };
+
+  openCommentScreen = id => {
+    this.setState({
+      showModal: true,
+      selectedItem: id,
+    });
+  };
+
+  closeCommentScreen = () => {
+    this.setState({
+      showModal: false,
+      selectedItemId: null,
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>

@@ -22,7 +22,7 @@ export default function Comments({
       <CommentInput placeholder="Leave a comment" onSubmit={onSubmitComment} />
       <CommentList items={comments} />
     </SafeAreaView>
-  )
+  );
 }
 
 Comments.propTypes = {
