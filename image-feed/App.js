@@ -1,30 +1,30 @@
-import { AsyncStorage, Modal, Platform, StyleSheet, View } from 'react-native';
-import { Constants } from 'expo';
-import React from 'react';
+import { AsyncStorage, Modal, Platform, StyleSheet, View } from "react-native";
+import { Constants } from "expo";
+import React from "react";
 
-import Comments from './screens/Comments';
-import Feed from './screens/Feed';
+import Comments from "./screens/Comments";
+import Feed from "./screens/Feed";
 
-const ASYNC_STORAGE_COMMENTS_KEY = 'ASYNC_STORAGE_COMMENTS_KEY';
+const ASYNC_STORAGE_COMMENTS_KEY = "ASYNC_STORAGE_COMMENTS_KEY";
 
 export default class App extends React.Component {
   state = {
     commentsForItem: {},
     showModal: false,
-    selectedItemId: null,
+    selectedItemId: null
   };
 
   async componentDidMount() {
     try {
       const commentsForItem = await AsyncStorage.getItem(
-        ASYNC_STORAGE_COMMENTS_KEY,
+        ASYNC_STORAGE_COMMENTS_KEY
       );
 
       this.setState({
-        commentsForItem: commentsForItem ? JSON.parse(commentsForItem) : {},
+        commentsForItem: commentsForItem ? JSON.parse(commentsForItem) : {}
       });
     } catch (e) {
-      console.log('Failed to load comments');
+      console.log("Failed to load comments");
     }
   }
 
@@ -34,7 +34,7 @@ export default class App extends React.Component {
 
     const updated = {
       ...commentsForItem,
-      [selectedItemId]: [...comments, text],
+      [selectedItemId]: [...comments, text]
     };
 
     this.setState({ commentsForItem: updated });
@@ -42,21 +42,21 @@ export default class App extends React.Component {
     try {
       AsyncStorage.setItem(ASYNC_STORAGE_COMMENTS_KEY, JSON.stringify(updated));
     } catch (e) {
-      console.log('Failed to save comment', text, 'for', selectedItemId);
+      console.log("Failed to save comment", text, "for", selectedItemId);
     }
   };
 
   openCommentScreen = id => {
     this.setState({
       showModal: true,
-      selectedItemId: id,
+      selectedItemId: id
     });
   };
 
   closeCommentScreen = () => {
     this.setState({
       showModal: false,
-      selectedItemId: null,
+      selectedItemId: null
     });
   };
 
@@ -88,25 +88,25 @@ export default class App extends React.Component {
 }
 
 const platformVersion =
-  Platform.OS === 'ios' ? parseInt(Platform.Version, 10) : Platform.Version;
+  Platform.OS === "ios" ? parseInt(Platform.Version, 10) : Platform.Version;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   feed: {
     flex: 1,
     marginTop:
-      Platform.OS === 'android' || platformVersion < 11
+      Platform.OS === "android" || platformVersion < 11
         ? Constants.statusBarHeight
-        : 0,
+        : 0
   },
   comments: {
     flex: 1,
     marginTop:
-      Platform.OS === 'ios' && platformVersion < 11
+      Platform.OS === "ios" && platformVersion < 11
         ? Constants.statusBarHeight
-        : 0,
-  },
+        : 0
+  }
 });
