@@ -1,13 +1,13 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 
 export default class CommentList extends Component {
   static propTypes = {
-    items: PropTypes.arrayOf(PropTypes.string).isRequired,
+    items: PropTypes.arrayOf(PropTypes.string).isRequired
   };
 
-  renderItmes = (item, index) => (
+  renderItem = (item, index) => (
     <View key={index} style={styles.comment}>
       <Text>{item}</Text>
     </View>
@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingRight: 20,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'rgba(0, 0, 0, 0.05)',
-  },
+    borderBottomColor: "rgba(0, 0, 0, 0.05)"
+  }
 });

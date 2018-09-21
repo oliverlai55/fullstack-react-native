@@ -9,7 +9,7 @@ export default class CommentInput extends Component {
   };
 
   static defaultProps = {
-    palceholder = '',
+    placeholder: '',
   };
 
   state = {

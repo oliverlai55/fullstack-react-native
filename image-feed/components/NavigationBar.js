@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function NavigationBar({ title, leftText, onPressLeftText }) {
   return (
-    <View style={style.container}>
+    <View style={styles.container}>
       <TouchableOpacity style={styles.leftText} onPress={onPressLeftText}>
         <Text>{leftText}</Text>
       </TouchableOpacity>
