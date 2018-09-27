@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const MessageShape = PropTypes.shape({
   id: PropTypes.number.isRequired,
-  type: PropType.oneOf(['text', 'image', 'location']),
+  type: PropTypes.oneOf(['text', 'image', 'location']),
   text: PropTypes.string,
   uri: PropTypes.string,
   coordinate: PropTypes.shape({
@@ -34,7 +34,7 @@ export function createImageMessage(uri) {
   };
 }
 
-export function createLocationMessage(corordinate) {
+export function createLocationMessage(coordinate) {
   return {
     type: 'location',
     id: getNextId(),
